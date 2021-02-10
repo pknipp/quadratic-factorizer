@@ -1,3 +1,10 @@
+PAK's recipe (after creating a local repo):
+    once:
+        create app at heroku
+        heroku git:remote -a APP-NAME
+    every time thereafter:
+        git push heroku master
+
 https://github.com/mars/create-react-app-buildpack#user-content-quick-start
 
 Requires

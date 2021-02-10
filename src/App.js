@@ -367,8 +367,9 @@ const App = () => {
                         }} />
                         x
                         <Mark grade={coefsGrade[1]} />
-                        ) + </p>
-                        <p align="center">(<input type={"number"} value={coefsResponse[2]} onChange={e => {
+                        ) +
+                        {/* </p><p align="center"> */}
+                            (<input type={"number"} value={coefsResponse[2]} onChange={e => {
                             let newCoefsResponse = [...coefsResponse];
                             newCoefsResponse[2] = Number(e.target.value);
                             setCoefsResponse(newCoefsResponse);
