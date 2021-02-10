@@ -312,7 +312,7 @@ const App = () => {
                                 </p>
                             </div>
                             {!rowsVisible ? null : <><span>
-                                In each of the following rows that appears, list a pair of factors (separated by a comma) whose product equals ac.  In the next columns determine the sum of this pair, and how this sum compares to b\.
+                                In each of the following rows that appears, list a pair of factors (separated by a comma) whose product equals ac.  In the next columns determine the sum of this pair, and how this sum compares to b.
                             </span>
                             <table align="center">
                                 <thead>
