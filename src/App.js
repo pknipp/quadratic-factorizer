@@ -196,10 +196,11 @@ const App = () => {
         let gcd1 = gcd(Math.abs(coefs[2]), Math.abs(coefs[3])) * Math.sign(coefs[2]);
         let newSubString = [];
         newSubString[0] = `${(gcd0 === 1) ? '' : gcd0}x(${coefs[0]/gcd0 === 1 ? '' : coefs[0]/gcd0}x${coefs[1] < 0 ? "-" : "+"}${Math.abs(coefs[1]/gcd0)})`;
-        newSubString[1] = `${(gcd1 === 1) ? '' : gcd1}(${Math.abs(coefs[2]/gcd1) === 1 ? (coefs[2]/gcd1 > 0 ? '' : '-') : coefs[2]/gcd1}x${coefs[3]/gcd1 < 0 ? "-" : "+"}${Math.abs(coefs[3]/gcd1)})`;
+        newSubString[1] = `${(Math.abs(gcd1) === 1) ? (gcd1 > 0 ? '' : '-(') : (gcd1 + '(')}${coefs[2]/gcd1 === 1 ? '' : coefs[2]/gcd1}x${coefs[3]/gcd1 < 0 ? "-" : "+"}${Math.abs(coefs[3]/gcd1)}${gcd1 === 1 ? '' : ')'}`;
         setSubString(newSubString);
+        setSubStringResponse(new Array(2).fill(''));
     }
-    useEffect(ue4, [coefsResponse])
+    useEffect(ue4, [coefsResponse, coefs])
 
     const ue5 = () => {
         debugger
@@ -213,7 +214,7 @@ const App = () => {
         setSubStringGrade(newSubStringGrade);
         if (allCorrect) setStage(6);
     }
-    useEffect(ue5, [subStringResponse])
+    useEffect(ue5, [subStringResponse, subString])
 
 
     const ue6 = () => {
@@ -223,7 +224,7 @@ const App = () => {
         setFactoredStringGrade(newFactoredStringGrade);
         if (newFactoredStringGrade) setStage(7);
     }
-    useEffect(ue6, [factoredStringResponse])
+    useEffect(ue6, [factoredStringResponse, factoredString])
 
     const ue7 = () => {
         debugger
@@ -231,7 +232,7 @@ const App = () => {
         let newSolutionGrade = newSolutionResponse === '' ? null : solution === newSolutionResponse;
         setSolutionGrade(newSolutionGrade);
     };
-    useEffect(ue7, [solutionResponse]);
+    useEffect(ue7, [solutionResponse, solution]);
 
     return (
         <>

@@ -37,7 +37,7 @@ const Factor = ({ i, rowsVisible, setRowsVisible, stage, setStage, a, b, c }) =>
                 setRowsVisible(rowsVisible + 1);
             }
         }
-    }, [pair, sum, index]);
+    }, [pair, sum, index, a, b, c, setStage, setRowsVisible]);
 
     return (
         <tr>
