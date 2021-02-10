@@ -1,1 +1,4 @@
-
+input.short {width: 3em}
+input.medium {width: 4em}
+input.long {width: 15em}
+input,select {margin: 0 5px}

@@ -42,11 +42,11 @@ const Factor = ({ i, rowsVisible, setRowsVisible, stage, setStage, a, b, c }) =>
     return (
         <tr>
             <td>
-                <input type="text" value={pair} onChange={e => setPair(e.target.value)} />
+                <input type="text" className={"medium"} value={pair} onChange={e => setPair(e.target.value)} />
                 <Mark grade={pairGrade} />
             </td>
             <td>
-                <input type="number" value={sum} onChange={e => setSum(Number(e.target.value))}  />
+                <input type="number" className={"short"} value={sum} onChange={e => setSum(Number(e.target.value))}  />
                 <Mark grade={sumGrade} />
             </td>
             <td>
