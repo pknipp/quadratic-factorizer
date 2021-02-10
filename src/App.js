@@ -237,7 +237,7 @@ const App = () => {
     return (
         <>
             <div>
-                <p align="center"><h4>Solving a quadratic equation by factoring:</h4></p>
+                <h4 align="center">Solving a quadratic equation by factoring:</h4>
                 <div>Nomenclature:
                     <ul>
                         <li> Quadratic expression: ax<sup>2</sup> + bx + c</li>
@@ -314,8 +314,7 @@ const App = () => {
                             {!rowsVisible ? null : <><span>
                                 In each of the following rows that appears, list a pair of factors (separated by a comma) whose product equals ac.  In the next columns determine the sum of this pair, and how this sum compares to b\.
                             </span>
-                            <p align="center">
-                            <table>
+                            <table align="center">
                                 <thead>
                                     <tr>
                                     <th>pair of factors</th>
@@ -338,7 +337,7 @@ const App = () => {
                                         />
                                     ))}
                                 </tbody>
-                            </table></p></>}
+                            </table></>}
                         </>
                     </li>}
                     {stage < 3 || a === 1 ? null : <li>
