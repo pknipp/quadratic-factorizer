@@ -196,7 +196,7 @@ const App = () => {
         let gcd1 = gcd(Math.abs(coefs[2]), Math.abs(coefs[3])) * Math.sign(coefs[2]);
         let newSubString = [];
         newSubString[0] = `${(gcd0 === 1) ? '' : gcd0}x(${coefs[0]/gcd0 === 1 ? '' : coefs[0]/gcd0}x${coefs[1] < 0 ? "-" : "+"}${Math.abs(coefs[1]/gcd0)})`;
-        newSubString[1] = `${(gcd1 === 1) ? '' : gcd1}(${coefs[2]/gcd1 === 1 ? '' : coefs[2]/gcd1}x${coefs[3]/gcd1 < 0 ? "-" : "+"}${Math.abs(coefs[3]/gcd1)})`;
+        newSubString[1] = `${(gcd1 === 1) ? '' : gcd1}(${Math.abs(coefs[2]/gcd1) === 1 ? (coefs[2]/gcd1 > 0 ? '' : '-') : coefs[2]/gcd1}x${coefs[3]/gcd1 < 0 ? "-" : "+"}${Math.abs(coefs[3]/gcd1)})`;
         setSubString(newSubString);
     }
     useEffect(ue4, [coefsResponse])
