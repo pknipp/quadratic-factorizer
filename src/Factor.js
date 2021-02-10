@@ -56,7 +56,7 @@ const Factor = ({ i, rowsVisible, setRowsVisible, stage, setStage, a, b, c }) =>
                         <option key={index} value={index}> {option} </option>
                     ))}
                 </select>
-                 b
+                 <i>b</i>
                 <Mark grade={indexGrade} />
             </td>
         </tr>

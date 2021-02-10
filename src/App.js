@@ -240,11 +240,11 @@ const App = () => {
                 <h4 align="center">Solving a quadratic equation by factoring:</h4>
                 <div>Nomenclature:
                     <ul>
-                        <li> Quadratic expression: ax<sup>2</sup> + bx + c</li>
-                        <li> Quadratic equation: ax<sup>2</sup> + bx + c = 0</li>
+                        <li> quadratic expression: <i>ax</i><sup>2</sup> + <i>bx</i> + <i>c</i></li>
+                        <li> quadratic equation: <i>ax</i><sup>2</sup> + <i>bx</i> + <i>c</i> = 0</li>
                     </ul>
                 </div>
-                <div>You want to "factor" the expression so that the equation is in the form (dx + e)(fx + g) = 0.</div>
+                <div>You want to "factor" the expression so that the equation is in the form (<i>dx</i> + <i>e</i>)(<i>fx</i> + <i>g</i>) = 0.</div>
                 <div>Your answers to the following three questions will control the difficulty of the quadratic equation which you must solve:</div>
                 <ul>
                     <li>
@@ -270,29 +270,33 @@ const App = () => {
             </div>
             {stage < 1 ? null : <div>
                 Here is a particular quadratic equation for you to solve:
-                <span>{` ${a === 1 ? "" : a}`}x<sup>2</sup>
-                {`${!b ? ' ' : (((b < 0) ? " - " : " + ") + ((b === 1 || b === -1) ? '' : Math.abs(b)) + 'x')}
-                  ${!c ? ''  : (((c < 0) ? " - " : " + ") + Math.abs(c))}`} = 0</span>
+                <span>
+                    {` ${a === 1 ? "" : a}`}<i>x</i><sup>2</sup>
+                    {`${!b ? '' : (b < 0 ? ' - ' : ' + ')}`}
+                    {`${(!b || Math.abs(b) === 1) ? '' : Math.abs(b)}`}
+                    <i>{`${!b ? '' : 'x'}`}</i>
+                    {`${!c ? ''  : (((c < 0) ? " - " : " + ") + Math.abs(c))}`} = 0
+                  </span>
                 <div>Here are the steps which you should follow in order to factor this.</div>
                 <ol>
                     <li>
                         <div>Determine the values of each coefficient of the quadratic expression.</div>
                         <ul>
                             <li>
-                                a = <input className={"short"}
+                                <i>a</i> = <input className={"short"}
                                     type={"number"} value={aResponse}
                                     onChange={e => setAResponse(Number(e.target.value))}
                                 />
                                 <Mark grade={aGrade} />
                             </li>
                             <li>
-                                b = <input className={"short"}
+                                <i>b</i> = <input className={"short"}
                                     type={"number"} value={bResponse}
                                     onChange={e => setBResponse(Number(e.target.value))}
                                 />
                                 <Mark grade={bGrade} />
                             </li>
-                            <li>c = <input className={"short"}
+                            <li><i>c</i> = <input className={"short"}
                                     type={"number"} value={cResponse}
                                     onChange={e => setCResponse(Number(e.target.value))}
                                 />
@@ -303,7 +307,7 @@ const App = () => {
                     {stage < 2 ? null : <li>
                         <>
                             <div>
-                                <div>List each pair of factors whose product equals ac and whose sum has the same sign as that of b, or whose sum equals zero if b = 0.  (The order of the factors in this pair is irrelevant.) Separate the factors in this pair by a comma, and enclose the pair by parentheses. In order to make the next parts easier, you should list these pairs in some sort of order.  For instance for a = 6, b = -1 and c = -2 you may list these as (1, -12)(2, -6)(3, -4).</div>
+                                <div>List each pair of factors whose product equals <i>ac</i> and whose sum has the same sign as that of <i>b</i>, or whose sum equals zero if <i>b</i> = 0.  (The order of the factors in this pair is irrelevant.) Separate the factors in this pair by a comma, and enclose the pair by parentheses. In order to make the next parts easier, you should list these pairs in some sort of order.  For instance for <i>a</i> = 6, <i>b</i> = -1 and <i>c</i> = -2 you may list these pairs as (1, -12)(2, -6)(3, -4).</div>
                                 <p align="center">
                                     <input type="text" className={"long"} value={pairsResponse}
                                         onChange={e => setPairsResponse(e.target.value)}
@@ -312,14 +316,14 @@ const App = () => {
                                 </p>
                             </div>
                             {!rowsVisible ? null : <><span>
-                                In each of the following rows that appears, list a pair of factors (separated by a comma) whose product equals ac.  In the next columns determine the sum of this pair, and how this sum compares to b.
+                                In each of the following rows that appears, list a pair of factors (separated by a comma) whose product equals <i>ac</i>.  In the next columns determine the sum of this pair, and how this sum compares to <i>b</i>.
                             </span>
                             <table align="center">
                                 <thead>
                                     <tr>
                                     <th>pair of<br/>factors</th>
                                     <th>sum of<br/>factors</th>
-                                    <th>comparison of<br/>sum with b</th>
+                                    <th>comparison of<br/>sum with <i>b</i></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -343,10 +347,10 @@ const App = () => {
                     {stage < 3 || a === 1 ? null : <li>
                         Rewrite the middle term of the quadratic expression in terms of the sum of the two factors which you just found:
                         <p align="center">
-                            {`${a}`}x<sup>2</sup> +
+                            {`${a}`}<i>x</i><sup>2</sup> +
                             (<input className={"medium"} value={sumStringResponse}
                                 onChange={e => setSumStringResponse(e.target.value)}
-                            />)x
+                            />)<i>x</i>
                             {c < 0 ? " - " : " + "}{`${Math.abs(c)}`} = 0
                             <Mark grade={sumStringGrade} />
                         </p>
@@ -358,14 +362,14 @@ const App = () => {
                             newCoefsResponse[0] = Number(e.target.value);
                             setCoefsResponse(newCoefsResponse);
                         }} />
-                        x<sup>2</sup>
+                        <i>x</i><sup>2</sup>
                         <Mark grade={coefsGrade[0]} />
                          + <input className={"short"} type={"number"} value={coefsResponse[1]} onChange={e => {
                             let newCoefsResponse = [...coefsResponse];
                             newCoefsResponse[1] = Number(e.target.value);
                             setCoefsResponse(newCoefsResponse);
                         }} />
-                        x
+                        <i>x</i>
                         <Mark grade={coefsGrade[1]} />
                         ) +
                         {/* </p><p align="center"> */}
@@ -374,14 +378,14 @@ const App = () => {
                             newCoefsResponse[2] = Number(e.target.value);
                             setCoefsResponse(newCoefsResponse);
                         }} />
-                        x<Mark grade={coefsGrade[2]} /> + <input type={"number"} value={coefsResponse[3]} className={"short"} onChange={e => {
+                        <i>x</i><Mark grade={coefsGrade[2]} /> + <input type={"number"} value={coefsResponse[3]} className={"short"} onChange={e => {
                             let newCoefsResponse = [...coefsResponse];
                             newCoefsResponse[3] = Number(e.target.value);
                             setCoefsResponse(newCoefsResponse);
                         }} />)<Mark grade={coefsGrade[3]} /> = 0 </p>
                     </li>}
                     {stage < 5 || a === 1 ? null : <li>
-                        Rewrite the entire quadratic expression in the same order as in the previous step, but factoring the first grouping and the second grouping separately, ie by factoring out the GCF of the first pair of factors and then factoring out the GCF of the second pair. Keep the coefficient of "x" positive in each binomial.  [For example "4x<sup>2</sup> - 3x" would become "x(4x-3)", and "-4x+2" would become "-2(2x-1)".]
+                        Rewrite the entire quadratic expression in the same order as in the previous step, but factoring the first grouping and the second grouping separately, ie by factoring out the GCF of the first pair of factors and then factoring out the GCF of the second pair. Keep the coefficient of <i>x</i> positive in each binomial.  [For example 4<i>x</i><sup>2</sup> - 3<i>x</i> would become <i>x</i>(4<i>x</i> - 3), and -4<i>x</i> + 2 would become -2(2<i>x</i> - 1).]
                         <p align="center">
                             <input className={"medium"} type={"text"} value={subStringResponse[0]} onChange={e => {
                                 let newSubStringResponse = [...subStringResponse];
@@ -399,7 +403,7 @@ const App = () => {
                         </p>
                     </li>}
                     {stage < 6 ? null : <li>
-                        <div>Enter the factored form of the quadratic equation below, using "x", integers, and the following symbols: + - ) ( =  .</div>
+                        <div>Enter the factored form of the quadratic equation below, using <i>x</i>, integers, and the following symbols: + - ) ( =  .</div>
                         <p align="center">
                             <input className={"long"} type="text" value={factoredStringResponse}
                                 onChange={e => setFactoredStringResponse(e.target.value)}
