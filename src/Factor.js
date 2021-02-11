@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Mark from './Mark';
 
-const Factor = ({ i, rowsVisible, setRowsVisible, stage, setStage, a, b, c }) => {
+const Factor = ({ i, rowsVisible, setRowsVisible, step, setStep, a, b, c }) => {
 
     const options = ['choose', '<', '=', '>'];
     const [pair, setPair] = useState('');
@@ -32,12 +32,12 @@ const Factor = ({ i, rowsVisible, setRowsVisible, stage, setStage, a, b, c }) =>
 
         if (myIndexGrade) {
             if (!diff) {
-                setStage(3 + (a === 1 ? 3 : 0));
+                setStep(3 + (a === 1 ? 3 : 0));
             } else {
                 setRowsVisible(rowsVisible + 1);
             }
         }
-    }, [pair, sum, index, a, b, c, setStage, setRowsVisible]);
+    }, [pair, sum, index, a, b, c, setStep, setRowsVisible]);
 
     return (
         <tr>

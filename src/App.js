@@ -4,7 +4,7 @@ import Factor from './Factor';
 import gcd from './gcd';
 
 const App = () => {
-    const [stage, setStage] = useState(0);
+    const [step, setStep] = useState(0);
 
     const [leadOne, setLeadOne] = useState(true);
     const [pos, setPos] = useState(true);
@@ -51,11 +51,10 @@ const App = () => {
     const rand = n => Math.floor(n * Math.random());
 
     const ue0 = () => {
-        debugger
         let newBis = [[],[]];
         let gcds = [];
         if (!prod) {
-            setStage(0);
+            setStep(0);
         } else {
             newBis[0][1] = (1 + Math.floor(Math.sqrt(prod))) * [1, -1][pos ? 0 : rand(2)];
             newBis[1][1] = (1 + Math.floor(newBis[0][1]/2) + rand(newBis[0][1])) * [1, -1][pos ? 0 : rand(2)];
@@ -82,7 +81,6 @@ const App = () => {
             if (newB === 0) {
                 newPairs = [[Math.sqrt(-newC * newA), -Math.sqrt(-newC * newA)].sort()];
             } else {
-                // PAK is confused by the following line.
                 let first = newB ? Math.sign(newB * newC) : 1;
                 let last = newA * newC / first;
                 let facts = [first, last].sort();
@@ -96,7 +94,7 @@ const App = () => {
             };
             newPairs.sort();
             setPairs(newPairs);
-            setStage(1);
+            setStep(1);
             setA(newA);
             setB(newB);
             setC(newC);
@@ -121,11 +119,10 @@ const App = () => {
     useEffect(ue0, [prod, leadOne, pos]);
 
     const ue1 = () => {
-        debugger
         let newAGrade = aResponse === '' ? null : a === aResponse;
         let newBGrade = bResponse === '' ? null : b === bResponse;
         let newCGrade = cResponse === '' ? null : c === cResponse;
-        if (newAGrade && newBGrade && newCGrade) setStage(2);
+        if (newAGrade && newBGrade && newCGrade) setStep(2);
         setAGrade(newAGrade);
         setBGrade(newBGrade);
         setCGrade(newCGrade);
@@ -133,7 +130,6 @@ const App = () => {
     useEffect(ue1, [aResponse, bResponse, cResponse, a, b, c])
 
     const ue2 = () => {
-        debugger
         let newPairsResponse = pairsResponse.replace(/ /g,'').slice(1, -1).split(`)(`);
         newPairsResponse = newPairsResponse.map(pair => pair.split(",").sort().map(char => Number(char))).sort();
         let newPairsGrade = !pairsResponse.length ? null : JSON.stringify(newPairsResponse) === JSON.stringify(pairs);
@@ -144,7 +140,6 @@ const App = () => {
     useEffect(ue2, [pairsResponse, pairs]);
 
     const ue3 = () => {
-        debugger
         let mySumStringResponse = sumStringResponse.replace(/ /g,'');
         let signs = [1, 1];
         if (mySumStringResponse[0] === '-') {
@@ -178,12 +173,11 @@ const App = () => {
         }
         setSumStringGrade(sumStringResponse === '' ? null : newSumStringGrade);
         setCoefsResponse(new Array(4).fill(''));
-        if (newSumStringGrade) setStage(4);
+        if (newSumStringGrade) setStep(4);
     };
     useEffect(ue3, [sumStringResponse, bis])
 
     const ue4 = () => {
-        debugger
         let newCoefsGrade = [...coefsGrade];
         let allCorrect = true;
         for (let i = 0; i < newCoefsGrade.length; i++) {
@@ -191,7 +185,7 @@ const App = () => {
             allCorrect = allCorrect && newCoefsGrade[i];
         }
         setCoefsGrade(newCoefsGrade);
-        if (allCorrect) setStage(5);
+        if (allCorrect) setStep(5);
         let gcd0 = gcd(coefs[0], Math.abs(coefs[1]));
         let gcd1 = gcd(Math.abs(coefs[2]), Math.abs(coefs[3])) * Math.sign(coefs[2]);
         let newSubString = [];
@@ -203,31 +197,28 @@ const App = () => {
     useEffect(ue4, [coefsResponse, coefs])
 
     const ue5 = () => {
-        debugger
         let newSubStringResponse = [...subStringResponse];
         let newSubStringGrade = [...subStringGrade]
-        let allCorrect = true;
+        let bothCorrect = true;
         for (let i = 0; i < newSubStringGrade.length; i++) {
             newSubStringGrade[i] = (newSubStringResponse[i] === '') ? null : newSubStringResponse[i] === subString[i];
-            allCorrect = allCorrect && newSubStringGrade[i];
+            bothCorrect = bothCorrect && newSubStringGrade[i];
         }
         setSubStringGrade(newSubStringGrade);
-        if (allCorrect) setStage(6);
+        if (bothCorrect) setStep(6);
     }
     useEffect(ue5, [subStringResponse, subString])
 
 
     const ue6 = () => {
-        debugger
         let newFactoredStringResponse = "(" + factoredStringResponse.replace(/ /g,'').slice(1,-3).split(")(").sort().join(")(") + ")=0";
         let newFactoredStringGrade = factoredStringResponse === '' ? null : newFactoredStringResponse === factoredString;
         setFactoredStringGrade(newFactoredStringGrade);
-        if (newFactoredStringGrade) setStage(7);
+        if (newFactoredStringGrade) setStep(7);
     }
     useEffect(ue6, [factoredStringResponse, factoredString])
 
     const ue7 = () => {
-        debugger
         let newSolutionResponse = solutionResponse.replace(/ /g,'').split(",").sort().join(",");
         let newSolutionGrade = newSolutionResponse === '' ? null : solution === newSolutionResponse;
         setSolutionGrade(newSolutionGrade);
@@ -240,11 +231,11 @@ const App = () => {
                 <h4 align="center">Solving a quadratic equation by factoring:</h4>
                 <div>Nomenclature:
                     <ul>
-                        <li> quadratic expression: <i>ax</i><sup>2</sup> + <i>bx</i> + <i>c</i></li>
+                        <li> quadratic expression (or "trinomial"): <i>ax</i><sup>2</sup> + <i>bx</i> + <i>c</i></li>
                         <li> quadratic equation: <i>ax</i><sup>2</sup> + <i>bx</i> + <i>c</i> = 0</li>
                     </ul>
                 </div>
-                <div>You want to "factor" the expression so that the equation is in the form (<i>dx</i> + <i>e</i>)(<i>fx</i> + <i>g</i>) = 0.</div>
+                <div>You want to "factor" the trinomial into two binomials, so that the equation is in the form (<i>dx</i> + <i>e</i>)(<i>fx</i> + <i>g</i>) = 0.</div>
                 <div>Your answers to the following three questions will control the difficulty of the quadratic equation which you must solve:</div>
                 <ul>
                     <li>
@@ -268,7 +259,7 @@ const App = () => {
                     </li>
                 </ul>
             </div>
-            {stage < 1 ? null : <div>
+            {step < 1 ? null : <div>
                 Here is a particular quadratic equation for you to solve:
                 <span>
                     {` ${a === 1 ? "" : a}`}<i>x</i><sup>2</sup>
@@ -280,7 +271,7 @@ const App = () => {
                 <div>Here are the steps which you should follow in order to factor this.</div>
                 <ol>
                     <li>
-                        <div>Determine the values of each coefficient of the quadratic expression.</div>
+                        <div>Determine the values of each coefficient of the trinomial.</div>
                         <ul>
                             <li>
                                 <i>a</i> = <input className={"short"}
@@ -304,7 +295,7 @@ const App = () => {
                             </li>
                         </ul>
                     </li>
-                    {stage < 2 ? null : <li>
+                    {step < 2 ? null : <li>
                         <>
                             <div>
                                 <div>List each pair of factors whose product equals <i>ac</i> and whose sum has the same sign as that of <i>b</i>, or whose sum equals zero if <i>b</i> = 0.  (The order of the factors in this pair is irrelevant.) Separate the factors in this pair by a comma, and enclose the pair by parentheses. In order to make the next parts easier, you should list these pairs in some sort of order.  For instance for <i>a</i> = 6, <i>b</i> = -1 and <i>c</i> = -2 you may list these pairs as (1, -12)(2, -6)(3, -4).</div>
@@ -333,8 +324,8 @@ const App = () => {
                                             i={i}
                                             rowsVisible={rowsVisible}
                                             setRowsVisible={setRowsVisible}
-                                            stage={stage}
-                                            setStage={setStage}
+                                            step={step}
+                                            setStep={setStep}
                                             a={a}
                                             b={b}
                                             c={c}
@@ -344,7 +335,7 @@ const App = () => {
                             </table></>}
                         </>
                     </li>}
-                    {stage < 3 || a === 1 ? null : <li>
+                    {step < 3 || a === 1 ? null : <li>
                         Rewrite the middle term of the quadratic expression in terms of the sum of the two factors which you just found:
                         <p align="center">
                             {`${a}`}<i>x</i><sup>2</sup> +
@@ -355,7 +346,7 @@ const App = () => {
                             <Mark grade={sumStringGrade} />
                         </p>
                     </li>}
-                    {stage < 4 || a === 1 ? null : <li>
+                    {step < 4 || a === 1 ? null : <li>
                         Rewrite the entire quadratic expression in the same order as in the previous step, but grouping the first terms and the last two terms separately:
                         <p align="center">(<input className={"short"} type={"number"} value={coefsResponse[0]} onChange={e => {
                             let newCoefsResponse = [...coefsResponse];
@@ -384,7 +375,7 @@ const App = () => {
                             setCoefsResponse(newCoefsResponse);
                         }} />)<Mark grade={coefsGrade[3]} /> = 0 </p>
                     </li>}
-                    {stage < 5 || a === 1 ? null : <li>
+                    {step < 5 || a === 1 ? null : <li>
                         Rewrite the entire quadratic expression in the same order as in the previous step, but factoring the first grouping and the second grouping separately, ie by factoring out the GCF of the first pair of factors and then factoring out the GCF of the second pair. Keep the coefficient of <i>x</i> positive in each binomial.  [For example 4<i>x</i><sup>2</sup> - 3<i>x</i> would become <i>x</i>(4<i>x</i> - 3), and -4<i>x</i> + 2 would become -2(2<i>x</i> - 1).]
                         <p align="center">
                             <input className={"medium"} type={"text"} value={subStringResponse[0]} onChange={e => {
@@ -402,7 +393,7 @@ const App = () => {
                             = 0
                         </p>
                     </li>}
-                    {stage < 6 ? null : <li>
+                    {step < 6 ? null : <li>
                         <div>Enter the factored form of the quadratic equation below, using <i>x</i>, integers, and the following symbols: + - ) ( =  .</div>
                         <p align="center">
                             <input className={"long"} type="text" value={factoredStringResponse}
@@ -411,7 +402,7 @@ const App = () => {
                             <Mark grade={factoredStringGrade} />
                         </p>
                     </li>}
-                    {stage < 7 ? null : <li>
+                    {step < 7 ? null : <li>
                         <div>Below enter solutions to this equation as either a number or a comma-separated pair of numbers, each of which is either an integer or an unmixed fraction:</div>
                         <p align="center">
                             <input type={"text"} className={"medium"} value={solutionResponse}
