@@ -1,100 +1,57 @@
-PAK's recipe (after creating a local repo):
-    once:
-        create app at heroku
-        heroku git:remote -a APP-NAME
-    every time thereafter:
-        git push heroku master
+![Quadratic factorizer](screenshot.png)
 
-https://github.com/mars/create-react-app-buildpack#user-content-quick-start
+This front-end project was built from a [quick start](https://github.com/mars/create-react-app-buildpack#user-content-quick-start) for a create-react-app.
+It provides practice for an algebra student in the solving of quadratic equations via
+standard approaches for [factoring](https://brilliant.org/wiki/factoring-quadratics/) trinomials with integer coefficients.
+The app's calculations are done with JavaScript, and the page is rendered with two React
+functional components which utilize hooks.
 
-Requires
-* Heroku
-    * command-line tools (CLI)
-    * a free account
-* git
-* Node.js
+Solving a quadratic equation (e.g., 2<i>x</i><sup>2</sup> - 3<i>x</i> + 1 = 0) in this manner requires approximately 6 steps or 9 steps, depending upon whether or not the coefficient of the <i>x</i><sup>2</sup> term equals one.  The user controls the difficulty of the factoring task by the way in which he/she answers the first three questions. The app then randomly generates a quadratic equation which loosely fits those specifications, subject to a bit of randomization.
 
-Quick Start
+The app subsequently guides the user through the procedure's steps one at a time, and the numerical value of the step is kept in state.  For each step there are three quantities also stored in state: the answer key(s), the user's response(s), and the grade(s) for the user's response(s).  When the app grades string-responses such as algebraic expressions, it attempts to anticipate all possible ways that the user may format a "correct" response.  Often the student's response(s) in step <i>n</i> is/are used to generate the answer(s) for step <i>n</i>+1.  For each step there is a useEffect which typically handles the grading of the user's answer for that particular part, the calculation of the answer key(s) for later parts, and (if appropriate) the incrementation of the step variable.
 
-Ensure requirements are met, then execute the following in a terminal.
+As an example, this screenshot is for (successfully completed) step-5 of the app:
+![Step 5](step5.png)
 
-✏️ Replace $APP_NAME with the name for your unique app.
+This part is withheld from the user until he/she has correctly completed the previous step.
+The snippet below contains jsx for the instructions and controlled inputs for the portion of the page depicted above.
 
-* npx create-react-app@3.x $APP_NAME
-* cd $APP_NAME
-* heroku create $APP_NAME --buildpack mars/create-react-app
-* git push heroku master
-* heroku open
+```
+{step < 5 || a === 1 ? null : <li>
+    Rewrite the entire quadratic expression in the same order as in the previous step, but factoring the first grouand the second grouping separately, ie by factoring out the GCF of the first pair of factors and then factoringthe GCF of the second pair. Keep the coefficient of <i>x</i> positive in each binomial.  [For example 4<i><sup>2</sup> - 3<i>x</i> would become <i>x</i>(4<i>x</i> - 3), and -4<i>x</i> + 2 would become -2(2<i>x</i> - 1).]
+    <p align="center">
+        <input className={"medium"} type={"text"} value={subStringResponse[0]} onChange={e => {
+            let newSubStringResponse = [...subStringResponse];
+            newSubStringResponse[0] = e.target.value;
+            setSubStringResponse(newSubStringResponse);
+        }} />
+        <Mark grade={subStringGrade[0]} />
+        + <input className={"medium"} type={"text"} value={subStringResponse[1]} onChange={e => {
+            let newSubStringResponse = [...subStringResponse];
+            newSubStringResponse[1] = e.target.value;
+            setSubStringResponse(newSubStringResponse);
+        }} />
+        <Mark grade={subStringGrade[1]} />
+        = 0
+    </p>
+</li>}
+```
 
-Once deployed, continue development 🌱
+The code snippet below is the useEffect responsible for the grading of the user's responses for step-5.
+```
+const ue5 = () => {
+    let newSubStringResponse = [...subStringResponse];
+    let newSubStringGrade = [...subStringGrade]
+    let bothCorrect = true;
+    for (let i = 0; i < newSubStringGrade.length; i++) {
+        newSubStringGrade[i] = (newSubStringResponse[i] === '') ? null :
+            newSubStringResponse[i] === subString[i];
+        bothCorrect = bothCorrect && newSubStringGrade[i];
+    }
+    setSubStringGrade(newSubStringGrade);
+    if (bothCorrect) setStep(6);
+}
+useEffect(ue5, [subStringResponse, subString])
+```
 
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The one-to-one correspondence between step, answer key, user response, grade, useEffect, and input makes the code very maintainable and scalable, and this pattern should work quite well for any other sequential learning exercise.
