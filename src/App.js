@@ -325,9 +325,15 @@ const App = () => {
                             <table align="center">
                                 <thead>
                                     <tr>
-                                    <th>pair of factors of ac</th>
-                                    <th>{rowsVisible < 2 && colsVisible < 1 ? null : "sum of factors of ac"}</th>
-                                    <th>{rowsVisible < 2 && colsVisible < 2 ? null : "comparison of sum with b"}</th>
+                                        <Header col={0} colsVisible={colsVisible} rowsVisible={rowsVisible}
+                                            strings={["pair of", "factors", "of ", "ac"]}
+                                        />
+                                        <Header col={1} colsVisible={colsVisible} rowsVisible={rowsVisible}
+                                            strings={["sum of", "these", "numbers",""]}
+                                        />
+                                        <Header col={2} colsVisible={colsVisible} rowsVisible={rowsVisible}
+                                            strings={["comparison", "of sum", "with ", "b"]}
+                                        />
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -349,7 +355,9 @@ const App = () => {
                                 </tbody>
                             </table>
                             </>}
-                            {step > 2 ? "Because you've now found a pair of factors whose sum equals b, you may proceed to the next step." : null}
+                            {step > 2 ? "Because you've now found a pair of factors whose sum equals " : null}
+                            <i>{step > 2 ? "b" : null}</i>
+                            {step > 2 ? ", you may proceed to the next step." : null}
                         </>
                     </li>}
                     {step < 3 || a === 1 ? null : <li>
