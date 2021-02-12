@@ -1,62 +1,68 @@
 import React, { useState, useEffect } from 'react';
 import Mark from './Mark';
 
-const Factor = ({ i, rowsVisible, setRowsVisible, step, setStep, a, b, c }) => {
+const Factor = ({ i, rowsVisible, colsVisible, setRowsVisible, setColsVisible, step, setStep, prod, a, b }) => {
 
     const options = ['choose', '<', '=', '>'];
-    const [pair, setPair] = useState('');
+    const [pairResponse, setPairResponse] = useState('');
+    const [pairArray, setPairArray] = useState([]);
     const [pairGrade, setPairGrade] = useState(null);
-    const [sum, setSum] = useState('');
+    const [sumResponse, setSumResponse] = useState('');
     const [sumGrade, setSumGrade] = useState('');
-    const [index, setIndex] = useState(0);
+    const [indexResponse, setIndexResponse] = useState(0);
     const [indexGrade, setIndexGrade] = useState(null);
 
-    useEffect(() => {
-        let myPair = pair;
-        if (myPair[0] === "(") myPair = myPair.slice(1);
-        if (myPair[myPair.length - 1] === ")") myPair = myPair.slice(0,-1);
-        myPair = myPair.replace(/ /g,'').split(',').map(char => Number(char));
-        const myPairGrade = pair === '' ? null :
-        // myPair.length === 2 &&
-            myPair[0] * myPair[1] === a * c;
-        setPairGrade(myPairGrade);
+    const ue0 = () => {
+        let newPairArray = pairResponse.replace(/ /g,'').split(',').map(char => Number(char));
+        setPairArray(newPairArray);
+        const newPairGrade = pairResponse === '' ? null : newPairArray[0] * newPairArray[1] === prod;
+        setPairGrade(newPairGrade);
+        setColsVisible(newPairGrade ? 1 : 0);
+    }
+    useEffect(ue0, [pairResponse, prod]);
 
-        const mySumGrade = sum === '' ? null : (myPairGrade && myPair[0] + myPair[1] === sum);
-        setSumGrade(mySumGrade);
+    const ue1 = () => {
+        const newSumGrade = sumResponse === '' ? null : (pairGrade && pairArray[0] + pairArray[1] === Number(sumResponse));
+        setSumGrade(newSumGrade);
+        if (newSumGrade) setColsVisible(2);
+    }
+    useEffect(ue1, [sumResponse, prod, b]);
 
-        let diff = sum - b;
-        const myIndexGrade = mySumGrade && index === 2 + Math.sign(diff)
-        setIndexGrade(!index ? null : myIndexGrade);
-
-        if (myIndexGrade) {
+    const ue2 = () => {
+        let diff = Number(sumResponse) - b;
+        const newIndexGrade = sumGrade && indexResponse === 2 + Math.sign(diff)
+        setIndexGrade(!indexResponse ? null : newIndexGrade);
+        if (newIndexGrade) {
             if (!diff) {
                 setStep(3 + (a === 1 ? 3 : 0));
             } else {
+                setColsVisible(0);
                 setRowsVisible(rowsVisible + 1);
             }
         }
-    }, [pair, sum, index, a, b, c, setStep, setRowsVisible]);
+    };
+    useEffect(ue2, [indexResponse]);
 
     return (
         <tr>
             <td>
-                <input type="text" className={"medium"} value={pair} onChange={e => setPair(e.target.value)} />
+                <input type="text" className={"medium"} value={pairResponse} onChange={e => setPairResponse(e.target.value)} />
                 <Mark grade={pairGrade} />
             </td>
-            <td>
-                <input type="number" className={"short"} value={sum} onChange={e => setSum(Number(e.target.value))}  />
+            {i === rowsVisible - 1 && colsVisible < 1 ? null : <td>
+                <input type="number" className={"short"} value={sumResponse} onChange={e => setSumResponse(Number(e.target.value))}  />
                 <Mark grade={sumGrade} />
-            </td>
-            <td>
+            </td>}
+            {i === rowsVisible - 1 && colsVisible < 2 ? null : <td>
                 sum
-                <select value={index} onChange={e => setIndex(Number(e.target.value))}>
+                <select value={indexResponse} onChange={e => setIndexResponse(Number(e.target.value))}>
                     {options.map((option, index) => (
                         <option key={index} value={index}> {option} </option>
                     ))}
                 </select>
                  <i>b</i>
                 <Mark grade={indexGrade} />
-            </td>
+            </td>}
         </tr>
      )
 }
