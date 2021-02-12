@@ -26,9 +26,9 @@ const App = () => {
     const [pairsResponse, setPairsResponse] = useState('');
     const [pairsGrade, setPairsGrade] = useState(null);
 
+    const [pairsVisible, setPairsVisible] = useState(0);
     const [rowsVisible, setRowsVisible] = useState(0);
 
-    // const [sumString, setSumString] = useState('');
     const [sumStringResponse, setSumStringResponse] = useState('');
     const [sumStringGrade, setSumStringGrade] = useState(null);
 
@@ -298,6 +298,17 @@ const App = () => {
                     {step < 2 ? null : <li>
                         <>
                             <div>
+                                {/* <div> Next, you will enter each comma-separated pair of factors (one pair at a time) whose product equals <i>ac</i> and whose sum has the same sign as that of <i>b</i>.  To make the next parts easier, you should specify these pairs in some sort of order.  For instance for <i>a</i> = 6, <i>b</i> = -1 and <i>c</i> = -2 you may list these pairs as first (1, -12), then (2, -6), and finally (3, -4).</div>
+                                {new Array(pairsVisible).fill(0).map((blah, i) => (
+                                        <Pair
+                                            key={i}
+                                            i={i}
+                                            pairsVisible={pairsVisible}
+                                            setPairsVisible={setPairsVisible}
+                                            prod={a * c}
+                                            sign={Math.sign(b)}
+                                        />
+                                    ))} */}
                                 <div>List each pair of factors whose product equals <i>ac</i> and whose sum has the same sign as that of <i>b</i>, or whose sum equals zero if <i>b</i> = 0.  (The order of the factors in this pair is irrelevant.) Separate the factors in this pair by a comma, and enclose the pair by parentheses. In order to make the next parts easier, you should list these pairs in some sort of order.  For instance for <i>a</i> = 6, <i>b</i> = -1 and <i>c</i> = -2 you may list these pairs as (1, -12)(2, -6)(3, -4).</div>
                                 <p align="center">
                                     <input type="text" className={"long"} value={pairsResponse}

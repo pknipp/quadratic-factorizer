@@ -12,7 +12,6 @@ const Factor = ({ i, rowsVisible, setRowsVisible, step, setStep, a, b, c }) => {
     const [indexGrade, setIndexGrade] = useState(null);
 
     useEffect(() => {
-        debugger
         let myPair = pair;
         if (myPair[0] === "(") myPair = myPair.slice(1);
         if (myPair[myPair.length - 1] === ")") myPair = myPair.slice(0,-1);
@@ -28,7 +27,6 @@ const Factor = ({ i, rowsVisible, setRowsVisible, step, setStep, a, b, c }) => {
         let diff = sum - b;
         const myIndexGrade = mySumGrade && index === 2 + Math.sign(diff)
         setIndexGrade(!index ? null : myIndexGrade);
-        debugger
 
         if (myIndexGrade) {
             if (!diff) {
