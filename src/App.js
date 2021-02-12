@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Mark from './Mark';
 import Factor from './Factor';
+import Header from './Header';
 import gcd from './gcd';
 
 const App = () => {
