@@ -26,8 +26,8 @@ const App = () => {
     const [pairsResponse, setPairsResponse] = useState('');
     const [pairsGrade, setPairsGrade] = useState(null);
 
-    const [pairsVisible, setPairsVisible] = useState(0);
     const [rowsVisible, setRowsVisible] = useState(0);
+    const [colsVisible, setColsVisible] = useState(0);
 
     const [sumStringResponse, setSumStringResponse] = useState('');
     const [sumStringGrade, setSumStringGrade] = useState(null);
@@ -126,6 +126,7 @@ const App = () => {
         setAGrade(newAGrade);
         setBGrade(newBGrade);
         setCGrade(newCGrade);
+        setRowsVisible(newAGrade && newBGrade && newCGrade ? 1 : 0);
     };
     useEffect(ue1, [aResponse, bResponse, cResponse, a, b, c])
 
@@ -297,35 +298,35 @@ const App = () => {
                     </li>
                     {step < 2 ? null : <li>
                         <>
-                            <div>
-                                {/* <div> Next, you will enter each comma-separated pair of factors (one pair at a time) whose product equals <i>ac</i> and whose sum has the same sign as that of <i>b</i>.  To make the next parts easier, you should specify these pairs in some sort of order.  For instance for <i>a</i> = 6, <i>b</i> = -1 and <i>c</i> = -2 you may list these pairs as first (1, -12), then (2, -6), and finally (3, -4).</div>
-                                {new Array(pairsVisible).fill(0).map((blah, i) => (
-                                        <Pair
-                                            key={i}
-                                            i={i}
-                                            pairsVisible={pairsVisible}
-                                            setPairsVisible={setPairsVisible}
-                                            prod={a * c}
-                                            sign={Math.sign(b)}
-                                        />
-                                    ))} */}
-                                <div>List each pair of factors whose product equals <i>ac</i> and whose sum has the same sign as that of <i>b</i>, or whose sum equals zero if <i>b</i> = 0.  (The order of the factors in this pair is irrelevant.) Separate the factors in this pair by a comma, and enclose the pair by parentheses. In order to make the next parts easier, you should list these pairs in some sort of order.  For instance for <i>a</i> = 6, <i>b</i> = -1 and <i>c</i> = -2 you may list these pairs as (1, -12)(2, -6)(3, -4).</div>
+                            <div>In this part you will try to find a pair of numbers whose product equals <i>ac</i> and whose sum equals <i>b</i>.
+                                {/* <div>List each pair of factors whose product equals <i>ac</i> and whose sum has the same sign as that of <i>b</i>, or whose sum equals zero if <i>b</i> = 0.  (The order of the factors in this pair is irrelevant.) Separate the factors in this pair by a comma, and enclose the pair by parentheses. In order to make the next parts easier, you should list these pairs in some sort of order.  For instance for <i>a</i> = 6, <i>b</i> = -1 and <i>c</i> = -2 you may list these pairs as (1, -12)(2, -6)(3, -4).</div>
                                 <p align="center">
                                     <input type="text" className={"long"} value={pairsResponse}
                                         onChange={e => setPairsResponse(e.target.value)}
                                     />
                                     <Mark grade={pairsGrade} />
-                                </p>
+                                </p> */}
                             </div>
-                            {!rowsVisible ? null : <><span>
-                                In each of the following rows that appears, list a pair of factors (separated by a comma) whose product equals <i>ac</i>.  In the next columns determine the sum of this pair, and how this sum compares to <i>b</i>.
-                            </span>
+                            {!rowsVisible ? null : <>
+                            <p align="center">
+                                {step !== 2 ? null :
+                                    colsVisible === 0 ?
+                                        `Submit
+                                            ${rowsVisible === 1 ?
+                                                "a pair of factors (separated by a comma)" :
+                                                "another pair of factors"
+                                            }
+                                        whose product equals ac.` :
+                                    colsVisible === 1 ? "Determine the sum of this pair." :
+                                    "Determine how this sum compares to b."
+                                }
+                            </p>
                             <table align="center">
                                 <thead>
                                     <tr>
-                                    <th>pair of<br/>factors</th>
-                                    <th>sum of<br/>factors</th>
-                                    <th>comparison of<br/>sum with <i>b</i></th>
+                                    <th>pair of factors of ac</th>
+                                    <th>{rowsVisible < 2 && colsVisible < 1 ? null : "sum of factors of ac"}</th>
+                                    <th>{rowsVisible < 2 && colsVisible < 2 ? null : "comparison of sum with b"}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -334,16 +335,20 @@ const App = () => {
                                             key={i}
                                             i={i}
                                             rowsVisible={rowsVisible}
+                                            colsVisible={colsVisible}
                                             setRowsVisible={setRowsVisible}
+                                            setColsVisible={setColsVisible}
                                             step={step}
                                             setStep={setStep}
+                                            prod={a * c}
                                             a={a}
                                             b={b}
-                                            c={c}
                                         />
                                     ))}
                                 </tbody>
-                            </table></>}
+                            </table>
+                            </>}
+                            {step > 2 ? "Because you've now found a pair of factors whose sum equals b, you may proceed to the next step." : null}
                         </>
                     </li>}
                     {step < 3 || a === 1 ? null : <li>
