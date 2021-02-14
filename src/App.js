@@ -9,7 +9,9 @@ const App = () => {
 
     const [leadOne, setLeadOne] = useState(true);
     const [pos, setPos] = useState(true);
-    const [prod, setProd] = useState('');
+    const [prod, setProd] = useState(1);
+    // const [n, setN] = useState(1);
+    const [madeQuadratic, setMadeQuadratic] = useState(false);
 
     const [a, setA] = useState(1);
     const [b, setB] = useState(null);
@@ -54,7 +56,7 @@ const App = () => {
     const ue0 = () => {
         let newBis = [[],[]];
         let gcds = [];
-        if (!prod) {
+        if (!madeQuadratic) {
             setStep(0);
         } else {
             newBis[0][1] = (1 + Math.floor(Math.sqrt(prod))) * [1, -1][pos ? 0 : rand(2)];
@@ -119,7 +121,7 @@ const App = () => {
         setSolutionResponse('');
         setSolutionGrade(null);
     }
-    useEffect(ue0, [prod, leadOne, pos]);
+    useEffect(ue0, [madeQuadratic, prod, leadOne, pos]);
 
     const ue1 = () => {
         let newAGrade = aResponse === '' ? null : a === aResponse;
@@ -240,7 +242,7 @@ const App = () => {
                     </ul>
                 </div>
                 <div>You want to "factor" the trinomial into two binomials, so that the equation is in the form (<i>dx</i> + <i>e</i>)(<i>fx</i> + <i>g</i>) = 0.</div>
-                <div>Your answers to the following three questions will control the difficulty of the quadratic equation which you must solve:</div>
+                <div>Your answers to the following three questions will control the quadratic equation's difficulty (the default settings for which are "easy"):</div>
                 <ul>
                     <li>
                         Should the coefficient of the expression's leading term be one?
@@ -252,14 +254,31 @@ const App = () => {
                         {pos ? " No " : " Maybe "}
                         <button onClick={() => setPos(!pos)}>change</button>
                     </li>
-                    <li>
-                        <div>
+                    <li> This slider sets the general size of the trinomial's coefficients.
+                        {/* <div>
                             In order to find the factors of a quadratic expression, you'll first need to find the factors of an integer.
                         </div>
                         <div>
                             Approximately how large of an integer can you comfortably factor?
                             &nbsp;<input className={"short"} onChange={e => setProd(Number(e.target.value))} />
-                        </div>
+                        </div> */}
+                        <p align>
+                        smallest
+                        <input
+                            type="range"
+                            onChange={e => setProd(2 ** Number(e.target.value))}
+                            min="0"
+                            max="6"
+                            step="1"
+                            value={Math.log(prod)/Math.log(2)}
+                        />
+                        largest
+                        </p>
+                        {madeQuadratic ? null :
+                            <button onClick={() => setMadeQuadratic(true)}>
+                                Make quadratic equation
+                            </button>
+                        }
                     </li>
                 </ul>
             </div>
@@ -272,7 +291,7 @@ const App = () => {
                     <i>{`${!b ? '' : 'x'}`}</i>
                     {`${!c ? ''  : (((c < 0) ? " - " : " + ") + Math.abs(c))}`} = 0
                   </span>
-                <div>Here are the steps which you should follow in order to factor this.</div>
+                <div>Here are the steps which you should follow in order to solve this.</div>
                 <ol>
                     <li>
                         <div>Determine the values of each coefficient of the trinomial.</div>
