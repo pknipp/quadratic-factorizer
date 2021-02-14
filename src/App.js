@@ -59,8 +59,10 @@ const App = () => {
         } else {
             newBis[0][1] = (1 + Math.floor(Math.sqrt(prod))) * [1, -1][pos ? 0 : rand(2)];
             newBis[1][1] = (1 + Math.floor(newBis[0][1]/2) + rand(newBis[0][1])) * [1, -1][pos ? 0 : rand(2)];
-            newBis[0][0] = 1 + [0, rand(5)][leadOne ? 0 : rand(2)];
-            newBis[1][0] = 1 + [0, rand(5)][leadOne ? 0 : rand(2)];
+            // newBis[0][0] = 1 + [0, rand(5)][leadOne ? 0 : rand(2)];
+            // newBis[1][0] = 1 + [0, rand(5)][leadOne ? 0 : rand(2)];
+            newBis[0][0] = 1 + (leadOne ? 0 : rand(4));
+            newBis[1][0] = 1 + (leadOne ? 0 : rand(4));
             gcds[0] = gcd(newBis[0][0], newBis[0][1]);
             gcds[1] = gcd(newBis[1][0], newBis[1][1]);
             for (let i = 0; i < 2; i++) {
@@ -299,7 +301,8 @@ const App = () => {
                     </li>
                     {step < 2 ? null : <li>
                         <>
-                            <div>In this part you will try to find a pair of numbers whose product equals <i>ac</i> and whose sum equals <i>b</i>.
+                            <div>
+                                In this part you will try to find a pair of numbers whose product equals <i>ac</i> and whose sum equals <i>b</i>.
                                 {/* <div>List each pair of factors whose product equals <i>ac</i> and whose sum has the same sign as that of <i>b</i>, or whose sum equals zero if <i>b</i> = 0.  (The order of the factors in this pair is irrelevant.) Separate the factors in this pair by a comma, and enclose the pair by parentheses. In order to make the next parts easier, you should list these pairs in some sort of order.  For instance for <i>a</i> = 6, <i>b</i> = -1 and <i>c</i> = -2 you may list these pairs as (1, -12)(2, -6)(3, -4).</div>
                                 <p align="center">
                                     <input type="text" className={"long"} value={pairsResponse}
