@@ -321,7 +321,7 @@ const App = () => {
                     {step < 2 ? null : <li>
                         <>
                             <div>
-                                In this part you will try to find a pair of numbers whose product equals <i>ac</i> {`[= (${a})(${c}) = ${a*c}]`} and whose sum equals <i>b</i> {`(= ${b})`}.
+                                In this part you will try to find a pair of numbers whose product equals <i>ac</i> {`[(${a})(${c}) = ${a*c}]`} and whose sum equals <i>b</i> {`(${b})`}.
                                 {/* <div>List each pair of factors whose product equals <i>ac</i> and whose sum has the same sign as that of <i>b</i>, or whose sum equals zero if <i>b</i> = 0.  (The order of the factors in this pair is irrelevant.) Separate the factors in this pair by a comma, and enclose the pair by parentheses. In order to make the next parts easier, you should list these pairs in some sort of order.  For instance for <i>a</i> = 6, <i>b</i> = -1 and <i>c</i> = -2 you may list these pairs as (1, -12)(2, -6)(3, -4).</div>
                                 <p align="center">
                                     <input type="text" className={"long"} value={pairsResponse}
