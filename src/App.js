@@ -348,13 +348,13 @@ const App = () => {
                                 <thead>
                                     <tr>
                                         <Header col={0} colsVisible={colsVisible} rowsVisible={rowsVisible}
-                                            strings={["pair of", "factors", "of ", "ac", "[=", `(${a})(${c}) = ${a*c}]`]}
+                                            strings={["pair of", "factors", "of ", "ac", "", `[(${a})(${c}) = ${a*c}]`]}
                                         />
                                         <Header col={1} colsVisible={colsVisible} rowsVisible={rowsVisible}
                                             strings={["sum of", "these", "numbers","",""]}
                                         />
                                         <Header col={2} colsVisible={colsVisible} rowsVisible={rowsVisible}
-                                            strings={["comparison", "of sum", "with ", "b", "", `(= ${b})`]}
+                                            strings={["comparison", "of sum", "with ", "b", "", `(${b})`]}
                                         />
                                     </tr>
                                 </thead>
