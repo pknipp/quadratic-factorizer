@@ -299,20 +299,20 @@ const App = () => {
                             <li>
                                 <i>a</i> = <input className={"short"}
                                     type={"number"} value={aResponse}
-                                    onChange={e => setAResponse(Number(e.target.value))}
+                                    onChange={e => setAResponse(e.target.value === '' ? '' : Number(e.target.value))}
                                 />
                                 <Mark grade={aGrade} />
                             </li>
                             <li>
                                 <i>b</i> = <input className={"short"}
                                     type={"number"} value={bResponse}
-                                    onChange={e => setBResponse(Number(e.target.value))}
+                                    onChange={e => setBResponse(e.target.value === '' ? '' : Number(e.target.value))}
                                 />
                                 <Mark grade={bGrade} />
                             </li>
                             <li><i>c</i> = <input className={"short"}
                                     type={"number"} value={cResponse}
-                                    onChange={e => setCResponse(Number(e.target.value))}
+                                    onChange={e => setCResponse(e.target.value === '' ? '' : Number(e.target.value))}
                                 />
                                 <Mark grade={cGrade} />
                             </li>
@@ -397,14 +397,16 @@ const App = () => {
                         Rewrite the entire quadratic expression in the same order as in the previous step, but grouping the first terms and the last two terms separately:
                         <p align="center">(<input className={"short"} type={"number"} value={coefsResponse[0]} onChange={e => {
                             let newCoefsResponse = [...coefsResponse];
-                            newCoefsResponse[0] = Number(e.target.value);
+                            let num = e.target.value;
+                            newCoefsResponse[0] = num === '' ? '' : Number(num);
                             setCoefsResponse(newCoefsResponse);
                         }} />
                         <i>x</i><sup>2</sup>
                         <Mark grade={coefsGrade[0]} />
                          + <input className={"short"} type={"number"} value={coefsResponse[1]} onChange={e => {
                             let newCoefsResponse = [...coefsResponse];
-                            newCoefsResponse[1] = Number(e.target.value);
+                            let num = e.target.value;
+                            newCoefsResponse[1] = num === '' ? '' : Number(num);
                             setCoefsResponse(newCoefsResponse);
                         }} />
                         <i>x</i>
@@ -413,12 +415,14 @@ const App = () => {
                         {/* </p><p align="center"> */}
                             (<input className={"short"} type={"number"} value={coefsResponse[2]} onChange={e => {
                             let newCoefsResponse = [...coefsResponse];
-                            newCoefsResponse[2] = Number(e.target.value);
+                            let num = e.target.value;
+                            newCoefsResponse[2] = num === '' ? '' : Number(num);
                             setCoefsResponse(newCoefsResponse);
                         }} />
                         <i>x</i><Mark grade={coefsGrade[2]} /> + <input type={"number"} value={coefsResponse[3]} className={"short"} onChange={e => {
                             let newCoefsResponse = [...coefsResponse];
-                            newCoefsResponse[3] = Number(e.target.value);
+                            let num = e.target.value;
+                            newCoefsResponse[3] = num === '' ? '' : Number(num);
                             setCoefsResponse(newCoefsResponse);
                         }} />)<Mark grade={coefsGrade[3]} /> = 0 </p>
                     </li>}

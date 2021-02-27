@@ -50,7 +50,7 @@ const Factor = ({ i, rowsVisible, colsVisible, setRowsVisible, setColsVisible, s
                 <Mark grade={pairGrade} />
             </td>
             {i === rowsVisible - 1 && colsVisible < 1 ? null : <td>
-                <input type="number" className={"short"} value={sumResponse} onChange={e => setSumResponse(Number(e.target.value))}  />
+                <input type="number" className={"short"} value={sumResponse} onChange={e => setSumResponse(e.target.value === '' ? '' : Number(e.target.value))}  />
                 <Mark grade={sumGrade} />
             </td>}
             {i === rowsVisible - 1 && colsVisible < 2 ? null : <td>
