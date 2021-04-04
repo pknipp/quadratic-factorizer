@@ -464,6 +464,7 @@ const App = () => {
                     </li>}
                 </ol>
             </div>}
+            <br/>creator: <a href="https://pknipp.github.io/" target="_blank">Peter Knipp</a>
         </>
     );
 };
