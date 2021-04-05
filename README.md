@@ -1,4 +1,4 @@
-![Quadratic factorizer](screenshot.png)
+![Quadratic factorizer](public/screenshot.png)
 
 [Heroku deployment](https://quadratic-factorizer.herokuapp.com)
 
