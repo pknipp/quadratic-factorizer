@@ -1,5 +1,7 @@
 ![Quadratic factorizer](screenshot.png)
 
+[Heroku deployment](https://quadratic-factorizer.herokuapp.com)
+
 This front-end project was built from a [quick start](https://github.com/mars/create-react-app-buildpack#user-content-quick-start) for a create-react-app.
 It provides practice for an algebra student in the solving of quadratic equations via
 standard approaches for [factoring](https://brilliant.org/wiki/factoring-quadratics/) trinomials with integer coefficients.
@@ -54,4 +56,4 @@ const ue5 = () => {
 useEffect(ue5, [subStringResponse, subString])
 ```
 
-The one-to-one correspondence between step, answer key, user response, grade, useEffect, and input makes the code very maintainable and scalable, and this pattern should work quite well for any other sequential learning exercise.
+The one-to-one correspondence between step, answer key, user response, grade, useEffect, and input makes the code very maintainable and scalable, and this pattern should work quite well for any other sequential-learning exercise.
