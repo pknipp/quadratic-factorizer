@@ -56,4 +56,4 @@ const ue5 = () => {
 useEffect(ue5, [subStringResponse, subString])
 ```
 
-The one-to-one correspondence between step, answer key, user response, grade, useEffect, and input makes the code very maintainable and scalable, and this pattern should work quite well for any other sequential-learning exercise.
+The one-to-one correspondence between step, answer key, user response, grade, useEffect, and input makes the code very maintainable and scalable, and this pattern should work quite well for any other sequential learning-exercise.
