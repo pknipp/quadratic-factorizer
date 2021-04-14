@@ -266,7 +266,10 @@ const App = () => {
                         smallest
                         <input
                             type="range"
-                            onChange={e => setProd(2 ** Number(e.target.value))}
+                            onChange={e => {
+                                setProd(2 ** Number(e.target.value));
+                                setMadeQuadratic(false);
+                            }}
                             min="0"
                             max="6"
                             step="1"
