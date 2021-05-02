@@ -13,6 +13,7 @@ const Factor = ({ i, rowsVisible, colsVisible, setRowsVisible, setColsVisible, s
     const [indexGrade, setIndexGrade] = useState(null);
 
     const ue0 = () => {
+        console.log(typeof(pairResponse));
         let newPairArray = pairResponse.replace(/ /g,'').split(',').map(char => Number(char));
         setPairArray(newPairArray);
         const newPairGrade = pairResponse === '' ? null : newPairArray[0] * newPairArray[1] === prod;
