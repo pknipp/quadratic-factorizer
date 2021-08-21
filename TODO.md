@@ -1,1 +1,1 @@
-* combine w/"graphical kinematics" under "educational tools" umbrella?
+* combine w/"graphical kinematics" under "educational tools" umbrella?.
