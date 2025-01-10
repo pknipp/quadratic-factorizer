@@ -468,7 +468,7 @@ const App = () => {
                 </ol>
             </div>}
             <br/>creator: <a href="https://pknipp.github.io/" target="_blank" rel="noreferrer">Peter Knipp</a>
-            <br/>GitHub <a href="https://github.com/pknipp/quadratic-factorizer" target="_blank" rel="noreferrer">repo</a>
+            <br/>repo: <a href="https://github.com/pknipp/quadratic-factorizer" target="_blank" rel="noreferrer">github.com/pknipp/quadratic-factorizer</a>
         </>
     );
 };
